@@ -9,16 +9,19 @@
 3. 提供无监督学习方法对流量进行聚类分析。
 4. 实现了基于规则的流量分组方法。
 5. 支持基于时间和频率的流量分组。
+6. 提供了特征处理和降维功能。
 
 ## 项目结构
 
-- `main.py`: 主程序入口，orchestrates 整个分析流程。
+- `main.py`: 主程序入口，协调整个分析流程。
 - `reader.py`: 负责读取 pcap 文件并提取初始特征。
 - `feature_processor.py`: 处理和转换提取的特征。
 - `unsupervised_trainer.py`: 实现无监督学习方法。
 - `rule_based_grouping.py`: 实现基于规则的分组方法。
 - `flows.py`: 定义了各种协议的 Flow 类。
-- `network_layer.py`, `transport_layer.py`, `application_layer.py`: 定义了不同网络层的基础类。
+- `network_layer.py`: 定义了网络层的基础类。
+- `transport_layer.py`: 定义了传输层的基础类。
+- `application_layer.py`: 定义了应用层的基础类。
 
 ## 安装依赖
 
