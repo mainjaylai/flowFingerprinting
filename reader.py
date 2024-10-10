@@ -2,15 +2,16 @@ import re
 from subprocess import PIPE, Popen
 import pyshark
 import numpy as np
-from cicflowmeter.flow_session import generate_session_class
-from cicflowmeter.features.context.packet_direction import PacketDirection
-from cicflowmeter.features.context.packet_flow_key import get_packet_flow_key
-from flows import IpFlow, TcpFlow, UdpFlow, HttpFlow, SmtpFlow, FtpFlow, IcmpFlow
+
+from application_layer import FtpFlow, HttpFlow, SmtpFlow
+from network_layer import IcmpFlow, IpFlow
+from transport_layer import TcpFlow, UdpFlow
+# from cicflowmeter.flow_session import generate_session_class
 
 class Reader(object):
     def __init__(self, verbose=False):
         self.verbose = verbose
-        self.flow_session = generate_session_class()
+        # self.flow_session = generate_session_class()
 
     def tshark_version(self):
         command = ["tshark", "--version"]
@@ -40,7 +41,7 @@ class Reader(object):
 
         pcap = pyshark.FileCapture(path)
         flow_array = []
-        cic_flows = self.flow_session.process_pcap(path)
+        # cic_flows = self.flow_session.process_pcap(path)
 
         for packet in pcap:
             flow = self.extract_flow(packet)
@@ -48,7 +49,8 @@ class Reader(object):
                 flow_array.append(flow)
 
         pcap.close()
-        return self.merge_features(flow_array, cic_flows)
+        return np.array(flow_array)
+        # return self.merge_features(flow_array, cic_flows)
 
     def extract_flow(self, packet):
         """从数据包中提取流量特征

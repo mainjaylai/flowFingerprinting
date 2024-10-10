@@ -1,4 +1,10 @@
-class IpFlow:
+class Flow:
+    def __iter__(self):
+        # Return an iterator over the values of the attributes
+        return iter(self.__dict__.values())
+
+
+class IpFlow(Flow):
     def __init__(self):
         self.timestamp = None
         self.src_ip = None
@@ -24,7 +30,8 @@ class IpFlow:
             self.fragment_offset = packet.ip.frag_offset
             self.header_length = packet.ip.hdr_len
 
-class IcmpFlow:
+
+class IcmpFlow(Flow):
     def __init__(self):
         self.src_ip = None
         self.dst_ip = None
